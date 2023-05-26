@@ -15,6 +15,7 @@ import Modal from './Modal';
 import Heading from '../Heading';
 import Input from '../Input';
 import { toast } from 'react-hot-toast';
+import Button from '../Button';
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -41,8 +42,7 @@ const RegisterModal = () => {
                 registerModal.onClose();
             })
             .catch((error) => {
-                console.log('error')
-                toast.error(error)
+                toast.error('Something is wrong.')
             })
             .finally(() => {
                 setIsLoading(false)
@@ -83,6 +83,41 @@ const RegisterModal = () => {
                 required
             />
         </div>
+    );
+
+    const footerContent = (
+        <div className="flex flex-col gap-4 mt-3">
+            <hr />
+            <Button
+                outline
+                label="Continue whith Google"
+                icon={FcGoogle}
+                onClick={() => { }}
+            />
+            <Button
+                outline
+                label="Continue whith Github"
+                icon={AiFillGithub}
+                onClick={() => { }}
+            />
+            <div
+                className="
+                text-neutral-500 
+                text-center 
+                mt-4 
+                font-light"
+            >
+                <div className='justify-center flex flex-row items-center gap-2'>
+                    <div>
+                        Already have an account?
+                    </div>
+                    <div onClick={registerModal.onClose} className='text-neutral-800 cursor-pointer hover:underline'>
+                        Log In
+                    </div>
+                </div>
+
+            </div>
+        </div>
     )
 
     return (
@@ -94,6 +129,7 @@ const RegisterModal = () => {
             onClose={registerModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
             body={bodyContent}
+            footer={footerContent}
 
         />
     )

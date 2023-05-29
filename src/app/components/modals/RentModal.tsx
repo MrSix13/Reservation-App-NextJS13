@@ -5,7 +5,7 @@ import useRentModal from "@/app/hooks/useRentModal";
 import Modal from './Modal';
 import Heading from "../Heading";
 import { categories } from "../Navbar/Categories";
-import { CategoryInput, CountrySelect } from "../inputs";
+import { CategoryInput, Counter, CountrySelect, ImageUpload } from "../inputs";
 import { FieldValues, useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
 
@@ -48,6 +48,12 @@ const RentModal: React.FC = () => {
 
     const category = watch('category');
     const location = watch('location');
+    const guestCount = watch('guestCount');
+    const roomCount = watch('roomCount');
+    const bathroomCount = watch('bathroomCount');
+    const imageSrc = watch('imageSrc');
+
+
     const Map = useMemo(() => dynamic(() => import('../Map'), {
         ssr: false
     }), [location]);
@@ -131,6 +137,51 @@ const RentModal: React.FC = () => {
         )
     }
 
+    if (step === STEPS.INFO) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading
+                    title="Share some basics about your rooms"
+                    subtitle="What amenities do yo have?"
+                />
+                <Counter
+                    title="Gyests"
+                    subtitle="how many guests do you allow?"
+                    value={guestCount}
+                    onChange={(value) => setCustomValue('guestCount', value)}
+                />
+                <hr />
+                <Counter
+                    title="Rooms"
+                    subtitle="how many rooms do you have?"
+                    value={roomCount}
+                    onChange={(value) => setCustomValue('roomCount', value)}
+                />
+                <hr />
+                <Counter
+                    title="Bathrooms"
+                    subtitle="how many bathrooms do you have?"
+                    value={bathroomCount}
+                    onChange={(value) => setCustomValue('bathroomCount', value)}
+                />
+            </div>
+        )
+    }
+
+    if (step === STEPS.IMAGES) {
+        bodyContent = (
+            <div className="flex flex-col gap-8" >
+                <Heading
+                    title="Add a photo your place"
+                    subtitle="show guets what your place looks like"
+                />
+                <ImageUpload
+                    onChange={(value) => setCustomValue('imageSrc', value)}
+                    value={imageSrc}
+                />
+            </div >
+        )
+    }
     return (
         <Modal
             isOpen={rentModal.isOpen}

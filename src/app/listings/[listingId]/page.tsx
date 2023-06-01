@@ -1,7 +1,10 @@
+
+
 import { getCurrentUser } from '@/app/actions';
 import getListingById from '@/app/actions/getListingById';
 import { ClientOnly, EmptyState } from '@/app/components';
 import React from 'react'
+import ListingClient from './ListingClient';
 
 interface IParams {
     listingId?: string;
@@ -23,7 +26,12 @@ const ListingPage = async ({ params }: { params: IParams }) => {
 
 
     return (
-        <div>individual pageaaa</div>
+        <ClientOnly>
+            <ListingClient
+                listing={listing}
+                currentUser={currentUser}
+            />
+        </ClientOnly>
     )
 }
 

@@ -3,3 +3,4 @@ export { default as CountrySelect } from "./CountrySelect";
 export { default as ImageUpload } from "./imageUpload";
 export { default as Counter } from "./Counter";
 export { default as Input } from "./Input";
+export { default as Calendar } from "./Calendar";

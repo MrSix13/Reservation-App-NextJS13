@@ -1,6 +1,6 @@
 
 
-import { getCurrentUser } from '@/app/actions';
+import { getCurrentUser, getReservations } from '@/app/actions';
 import getListingById from '@/app/actions/getListingById';
 import { ClientOnly, EmptyState } from '@/app/components';
 import React from 'react'
@@ -13,6 +13,7 @@ interface IParams {
 
 const ListingPage = async ({ params }: { params: IParams }) => {
     const currentUser = await getCurrentUser();
+    const reservations = await getReservations(params)
     const listing = await getListingById(params);
 
 
@@ -30,6 +31,7 @@ const ListingPage = async ({ params }: { params: IParams }) => {
             <ListingClient
                 listing={listing}
                 currentUser={currentUser}
+                reservations={reservations}
             />
         </ClientOnly>
     )
